@@ -159,6 +159,8 @@ Resources:
               Protection: true
 
 Outputs:
+  SolutionVersion:
+    Value: !FindInMap [Solution, Constants, Version]
   CloudFrontDistribution:
     Description: CloudFront distribution
     Value: !GetAtt CloudFrontDistribution.DomainName

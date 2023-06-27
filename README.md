@@ -23,10 +23,10 @@ The following diagram shows an overview of how the solution works:
 5. CloudFront caches the object.
 6. The object is returned to the viewer. Subsequent responses for the object are served from the CloudFront cache.
 
-
 ## Solution details
 
 ### S3 configuration
+
 This solution creates an S3 bucket that hosts your static website’s assets. The website is only accessible via CloudFront, not directly from S3.
 
 ### CloudFront configuration

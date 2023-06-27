@@ -21,10 +21,10 @@ Rules:
       - Assert:
           Fn::Equals:
             - !Ref AWS::Region
-            - us-east-1
+            - ap-northeast-1
         AssertDescription: |
-          This template can only be deployed in the us-east-1 region.
-          This is because the ACM Certificate must be created in us-east-1
+          This template can only be deployed in the ap-northeast-1 region.
+          This is because the ACM Certificate must be created in ap-northeast-1
 
 Parameters:
   SubDomain:
@@ -47,6 +47,7 @@ Parameters:
 Resources:
   CustomResourceStack:
     Type: AWS::CloudFormation::Stack
+    DeletionPolicy: Retain
     Properties:
       TemplateURL: ./custom-resource.yaml
       Tags:
@@ -55,6 +56,7 @@ Resources:
 
   AcmCertificateStack:
     Type: AWS::CloudFormation::Stack
+    DeletionPolicy: Retain
     Properties:
       TemplateURL: ./acm-certificate.yaml
       Parameters:
@@ -68,6 +70,7 @@ Resources:
 
   CloudFrontStack:
     Type: AWS::CloudFormation::Stack
+    DeletionPolicy: Retain
     Properties:
       TemplateURL: ./cloudfront-site.yaml
       Parameters:
@@ -84,30 +87,33 @@ Resources:
         - Key: Solution
           Value: ACFS3
 
-Outputs:
-  SolutionVersion:
-    Value: !FindInMap [Solution, Constants, Version]
-  CopyFunction:
-    Description: S3 helper function
-    Value: !GetAtt CustomResourceStack.Outputs.CopyFunction
-  S3BucketLogs:
-    Description: Logging bucket
-    Value: !GetAtt CustomResourceStack.Outputs.S3BucketLogs
-  S3BucketRoot:
-    Description: Website bucket
-    Value: !GetAtt CustomResourceStack.Outputs.S3BucketRoot
-  S3BucketLogsName:
-    Description: Logging bucket name
-    Value: !GetAtt CustomResourceStack.Outputs.S3BucketLogsName
-  S3BucketRootName:
-    Description: Website bucket name
-    Value: !GetAtt CustomResourceStack.Outputs.S3BucketRootName
-  CertificateArn:
-    Description: Issued certificate
-    Value: !GetAtt AcmCertificateStack.Outputs.CertificateArn
-  CFDistributionName:
-    Description: CloudFront distribution
-    Value: !GetAtt CloudFrontStack.Outputs.CloudFrontDistribution
-  CloudFrontDomainName:
-    Description: Website address
-    Value: !GetAtt CloudFrontStack.Outputs.CloudFrontDomainName
+# Outputs:
+#   SolutionVersion:
+#     Value: !FindInMap [Solution, Constants, Version]
+#   CopyFunction:
+#     Description: S3 helper function
+#     Value: !GetAtt CustomResourceStack.Outputs.CopyFunction
+#   S3BucketLogs:
+#     Description: Logging bucket
+#     Value: !GetAtt CustomResourceStack.Outputs.S3BucketLogs
+#   S3BucketRoot:
+#     Description: Website bucket
+#     Value: !GetAtt CustomResourceStack.Outputs.S3BucketRoot
+#   S3BucketLogsName:
+#     Description: Logging bucket name
+#     Value: !GetAtt CustomResourceStack.Outputs.S3BucketLogsName
+#   S3BucketRootName:
+#     Description: Website bucket name
+#     Value: !GetAtt CustomResourceStack.Outputs.S3BucketRootName
+#   S3BucketRootArn:
+#     Description: Website bucket
+#     Value: !GetAtt CustomResourceStack.Outputs.S3BucketRootArn
+#   CertificateArn:
+#     Description: Issued certificate
+#     Value: !GetAtt AcmCertificateStack.Outputs.CertificateArn
+#   CFDistributionName:
+#     Description: CloudFront distribution
+#     Value: !GetAtt CloudFrontStack.Outputs.CloudFrontDistribution
+#   CloudFrontDomainName:
+#     Description: Website address
+#     Value: !GetAtt CloudFrontStack.Outputs.CloudFrontDomainName

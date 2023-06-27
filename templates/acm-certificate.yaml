@@ -37,6 +37,8 @@ Resources:
       ValidationMethod: DNS
 
 Outputs:
+  SolutionVersion:
+    Value: !FindInMap [Solution, Constants, Version]
   CertificateArn:
     Description: Issued certificate
     Value: !Ref Certificate

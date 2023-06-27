@@ -92,6 +92,8 @@ Resources:
       Timeout: 300
 
 Outputs:
+  SolutionVersion:
+    Value: !FindInMap [Solution, Constants, Version]
   S3BucketRoot:
     Description: Website bucket
     Value: !Ref S3BucketRoot
