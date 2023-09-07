@@ -13,7 +13,7 @@ Metadata:
 Mappings:
   Solution:
     Constants:
-      Version: 'v0.9'
+      Version: 'v0.10'
 
 Rules:
   OnlyUsEast1:
@@ -42,7 +42,7 @@ Parameters:
     Description: Create an Apex Alias in CloudFront distribution - yes/no
     Type: String
     Default: 'no'
-    AllowedValues: ['yes','no']
+    AllowedValues: ['yes', 'no']
 
 Resources:
   CustomResourceStack:
